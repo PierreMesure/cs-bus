@@ -13,7 +13,7 @@ import java.net.URL;
  */
 public class Trafiklab {
 
-    private static final int[] errorStatusCodes = {1001 - 1002, 1003, 1004, 1005, 1006,
+    public static final int[] errorStatusCodes = {1001, 1002, 1003, 1004, 1005, 1006,
             1007, 4001, 5321, 5322, 5323, 5324};
 
     public Trafiklab() {

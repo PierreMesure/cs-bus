@@ -28,10 +28,11 @@ public class ServerProperties {
     put("trafiklab.api.fetchdelay", 1800);
   }};
 
-  protected ServerProperties() {}
+  protected ServerProperties() {
+  }
 
   public static ServerProperties getInstance() {
-    if(instance == null) {
+    if (instance == null) {
       instance = new ServerProperties();
     }
 
@@ -61,8 +62,7 @@ public class ServerProperties {
 
     try {
       config = configs.properties(configFile);
-    }
-    catch (ConfigurationException e) {
+    } catch (ConfigurationException e) {
       e.printStackTrace();
     }
 
@@ -76,13 +76,26 @@ public class ServerProperties {
             .configure(params.properties().setFileName("config.properties")
                            .setListDelimiterHandler(new DefaultListDelimiterHandler(',')));
 
-            Configuration config = builder.getConfiguration();
+    Configuration config = builder.getConfiguration();
 
     config.setProperty(propertyName, propertyValue);
     builder.save();
   }
 
   public Object getProperty(String name) {
+    Object property = loadFromFile().getProperty(name);
+
+    if (property == null && DEFAULT_PROPERTIES.containsKey(name)) {
+      try {
+        if (DEFAULT_PROPERTIES.containsKey(name)) {
+          saveToFile(name, DEFAULT_PROPERTIES.get(name));
+        } else {
+          throw new ConfigurationException("Property doesn't exist");
+        }
+      } catch (ConfigurationException e) {
+        e.printStackTrace();
+      }
+    }
     return loadFromFile().getProperty(name);
   }
 }

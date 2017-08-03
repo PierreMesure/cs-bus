@@ -42,6 +42,8 @@ public class Trafiklab {
             if (response == null || ArrayUtils.contains(errorStatusCodes, response.getStatusCode())) {
                 System.out.println("Error" + response.getStatusCode() + ": " + response.getMessage());
             }
+
+            return response;
         } catch (IOException | NullPointerException e) {
             e.printStackTrace();
         }

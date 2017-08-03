@@ -1,7 +1,6 @@
 package pojo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.io.Serializable;
@@ -11,7 +10,6 @@ import java.io.Serializable;
  */
 
 @Getter
-@AllArgsConstructor
 public class StopInfo implements Serializable {
 
     @JsonProperty("GroupOfLine")

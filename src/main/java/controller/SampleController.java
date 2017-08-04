@@ -1,5 +1,6 @@
 package controller;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
@@ -37,6 +38,10 @@ public class SampleController {
 
         Response response = trafiklab.getRealTimeDepartures("json", 9192, 60, true,
                 true, true, true, true);
+
+        if (ArrayUtils.contains(trafiklab.errorStatusCodes, response.getStatusCode())) {
+            return "Trafiklab error" + response.getStatusCode() + ": " + response.getMessage();
+        }
 
         List<BusTime> busTimes = BusTime.createFromResponse(response);
 

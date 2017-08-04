@@ -5,12 +5,14 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import pojo.BusTime;
 import pojo.Response;
 import pojo.Transport;
 import service.Trafiklab;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 @EnableAutoConfiguration
@@ -33,8 +35,11 @@ public class SampleController {
     String nextBus() throws IOException {
         Trafiklab trafiklab = new Trafiklab();
 
-        Response response = trafiklab.getRealTimeDepartures("json", 3703, 60, true,
+        Response response = trafiklab.getRealTimeDepartures("json", 9192, 60, true,
                 true, true, true, true);
+
+        List<BusTime> busTimes = BusTime.createFromResponse(response);
+
         Transport nextBus = response.getResponseData().getBuses().get(0);
         return "The next bus is coming in " + nextBus.getDisplayTime()
                 + " at " + nextBus.getStopAreaName();

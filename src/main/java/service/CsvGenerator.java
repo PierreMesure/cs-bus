@@ -12,7 +12,7 @@ public class CsvGenerator {
 
     private static CsvGenerator instance = null;
 
-    protected CsvGenerator() {}
+    private CsvGenerator() {}
 
     public static CsvGenerator getInstance() {
         if(instance == null) {
@@ -24,7 +24,7 @@ public class CsvGenerator {
 
     public static void writeBusTimesFile(List<BusTime> busTimes, String path) {
 
-        String filename = path + "bus.csv";
+        String filename = "bus.csv";
 
         BufferedWriter bufferedWriter = null;
         FileWriter fileWriter = null;
@@ -32,21 +32,25 @@ public class CsvGenerator {
         StringBuilder fileContent = new StringBuilder();
 
         for (BusTime busTime : busTimes) {
-            String busTimeString =
-                    busTime.getLine() + ","
-                            + busTime.getDestinationA() + ","
-                            + busTime.getBusTimesA().get(0) + ","
-                            + busTime.getBusTimesA().get(1) + ","
-                            + busTime.getBusTimesA().get(2) + ","
-                            + busTime.getDestinationB() + ","
-                            + busTime.getBusTimesB().get(0) + ","
-                            + busTime.getBusTimesB().get(1) + ","
-                            + busTime.getBusTimesB().get(2) + ",";
-            fileContent.append(busTimeString).append("\n");
+            fileContent.append(busTime.getLine()).append(",");
+            fileContent.append(busTime.getDestinationA()).append(",");
+
+            for (int i = 0; i < 3; i++) {
+                fileContent.append(busTime.getBusTimeA(i)).append(",");
+            }
+
+            fileContent.append(busTime.getDestinationB()).append(",");
+
+            for (int i = 0; i < 3; i++) {
+                fileContent.append(busTime.getBusTimeB(i)).append(",");
+            }
+            fileContent.deleteCharAt(fileContent.length() - 1);
+
+            fileContent.append("\n");
         }
 
         try {
-            fileWriter = new FileWriter(filename);
+            fileWriter = new FileWriter(new File(filename));
             bufferedWriter = new BufferedWriter(fileWriter);
             bufferedWriter.write(fileContent.toString());
         } catch (IOException e) {
@@ -61,4 +65,7 @@ public class CsvGenerator {
         }
     }
 
+    public static String getPath() {
+        return (String) ServerProperties.getInstance().getProperty("csv.import.path");
+    }
 }

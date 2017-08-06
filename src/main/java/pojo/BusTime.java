@@ -4,9 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -38,7 +41,7 @@ public class BusTime implements Serializable {
 
 
             String destinationA = destinations.get(0);
-            String destinationB = destinations.size() > 1 ? destinations.get(1) : null;
+            String destinationB = destinations.size() > 1 ? destinations.get(1) : "";
 
 
             List<Date> busTimesA = lineBuses.stream().filter(b -> b.getDestination().equals(destinationA))
@@ -52,5 +55,27 @@ public class BusTime implements Serializable {
         }
 
         return busTimes;
+    }
+
+    public String getBusTimeA(int index) {
+        if (this.getBusTimesA().size() <= index) {
+            return "";
+        }
+
+        DateFormat format = new SimpleDateFormat("HH:mm");
+        format.setTimeZone(TimeZone.getTimeZone("CEST"));
+        Date date = this.getBusTimesA().get(index);
+        return format.format(date);
+    }
+
+    public String getBusTimeB(int index) {
+        if (this.getBusTimesB().size() <= index) {
+            return "";
+        }
+
+        DateFormat format = new SimpleDateFormat("HH:mm");
+        format.setTimeZone(TimeZone.getTimeZone("CEST"));
+        Date date = this.getBusTimesB().get(index);
+        return format.format(date);
     }
 }

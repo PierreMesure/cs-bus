@@ -54,4 +54,8 @@ public class Trafiklab {
     private static String getApiKey() {
         return (String) ServerProperties.getInstance().getProperty("trafiklab.api.key");
     }
+
+    public static int getSiteId() {
+        return Integer.parseInt((String) ServerProperties.getInstance().getProperty("trafiklab.stopid"));
+    }
 }

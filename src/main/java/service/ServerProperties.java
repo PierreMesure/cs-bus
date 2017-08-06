@@ -26,9 +26,11 @@ public class ServerProperties {
   private static final Map<String, Object> DEFAULT_PROPERTIES = new HashMap<String, Object>() {{
     put("trafiklab.api.key", "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
     put("trafiklab.api.fetchdelay", 1800);
+    put("trafiklab.stopid ", 3719);
+    put("csv.import.path", "/csv");
   }};
 
-  protected ServerProperties() {
+  private ServerProperties() {
   }
 
   public static ServerProperties getInstance() {

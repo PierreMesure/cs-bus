@@ -40,7 +40,11 @@ public class Trafiklab {
             Response response = mapper.readValue(url, Response.class);
 
             if (response == null || ArrayUtils.contains(errorStatusCodes, response.getStatusCode())) {
-                System.out.println("Error" + response.getStatusCode() + ": " + response.getMessage());
+                System.out.println("Error " + response.getStatusCode() + ": " + response.getMessage());
+            }
+            else {
+                System.out.println("Successfully retrieved bus times for stop "
+                        + response.getResponseData().getBuses().get(0).getStopAreaName() + ".");
             }
 
             return response;

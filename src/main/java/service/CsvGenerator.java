@@ -10,18 +10,6 @@ import java.util.List;
 
 public class CsvGenerator {
 
-    private static CsvGenerator instance = null;
-
-    private CsvGenerator() {}
-
-    public static CsvGenerator getInstance() {
-        if(instance == null) {
-            instance = new CsvGenerator();
-        }
-
-        return instance;
-    }
-
     public static void writeBusTimesFile(List<BusTime> busTimes, String path) {
 
         String filename = "bus.csv";

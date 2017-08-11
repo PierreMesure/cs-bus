@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>se.collectivesunshine</groupId>
-    <artifactId>Server</artifactId>
+    <artifactId>bus</artifactId>
     <version>0.2</version>
     <build>
         <plugins>

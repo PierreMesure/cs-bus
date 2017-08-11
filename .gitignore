@@ -1,4 +1,4 @@
 .idea/
 target/
-Server.iml
 config.properties
+bus.iml
